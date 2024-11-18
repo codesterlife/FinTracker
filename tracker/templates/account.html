@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="section">
+        <h2 class="center-align">Account Details</h2>
+        <p><strong>Username:</strong> {{ user.username }} </p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <h4>Financial Summary</h4>
+        <p><strong>Total Income:</strong> ₹{{ total_income }}</p>
+        <p><strong>Total Expense:</strong> ₹{{ total_expense }}</p>
+        <a href="{% url 'logout' %}" class="btn red">Logout</a>
+    </div>
+{% endblock %}

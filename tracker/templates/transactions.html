@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="center-align">Transactions</h2>
+
+    <div class="center-align">
+        <form method="get" class="filter-form" style="width: 200px;">
+            <label for="filter">Filter by:</label>
+            <select id="filter" name="filter" onchange="this.form.submit()">
+                <option value="daily" {% if filter_type == 'daily' %}selected{% endif %}>Daily</option>
+                <option value="weekly" {% if filter_type == 'weekly' %}selected{% endif %}>Weekly</option>
+                <option value="monthly" {% if filter_type == 'monthly' %}selected{% endif %}>Monthly</option>
+                <option value="yearly" {% if filter_type == 'yearly' %}selected{% endif %}>Yearly</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="row" style=" height: 700px; overflow-y: scroll;">
+        <ul class="collection">
+            {% for transaction in transactions %}
+                <li class="collection-item {% if transaction.transaction_type == 'expense' %}red lighten-4{% else %}green lighten-4{% endif %}" style="border-bottom: 2px solid black;">
+                    <span class="title" style="font-weight: bold;">{{ transaction.category.name }}</span>
+                    <p>Date: {{ transaction.date }}</p>
+                    <p>Amount: {{ transaction.amount }}</p>
+                    <p>Type: {{ transaction.transaction_type }}</p>
+                </li>
+            {% empty %}
+                <li class="collection-item">No transactions found for this period.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

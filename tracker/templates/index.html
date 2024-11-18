@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="section center-align">
+        <h1>Welcome to FinTracker</h1>
+        <div class="row">
+            <div class="col s12">
+                <a href="{% url 'login' %}" class="waves-effect waves-light btn teal">Login</a>
+                <a href="{% url 'register' %}" class="waves-effect waves-light btn teal lighten-2">Register</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

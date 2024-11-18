@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="section">
+        <h2 class="center-align">Login</h2>
+        <div class="row">
+            <form class="col s12" method="post">
+                {% csrf_token %}
+                <div class="input-field col s12">
+                    <input type="text" id="username" name="username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="center-align">
+                    <button type="submit" class="btn waves-effect waves-light teal">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
