@@ -4,7 +4,7 @@ from .models import Transaction, Category
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['date', 'category', 'amount']
+        fields = ['date', 'category', 'amount', 'description']
 
     date = forms.DateField(
         input_formats=['%d-%m-%Y'],

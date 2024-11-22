@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>FinTracker</title>
-</head>
+</head>.
 <body>
     <!-- Navbar -->
     {% if user.is_authenticated %}
     <nav class="teal lighten-2">
         <div class="nav-wrapper container">
-            <a href="#" class="brand-logo">FinTracker</a>
+            <a href="#" class="brand-logo">FinTrackr</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="{% url 'spending' %}">Spending</a></li>
                 <li><a href="{% url 'dashboard' %}">Dashboard</a></li>

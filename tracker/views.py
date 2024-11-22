@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -202,6 +202,36 @@ def transactions(request):
         'transactions': transactions,
         'filter_type': filter_type,
     })
+
+@login_required
+def edit_transaction(request, transaction_id):
+    # Get the transaction object to edit
+    transaction = get_object_or_404(Transaction, id=transaction_id)
+    
+    if request.method == 'POST':
+        form = TransactionForm(request.POST, instance=transaction)
+        if form.is_valid():
+            # Save the updated transaction
+            form.save()
+            # Redirect to the transactions page after saving
+            return redirect('transactions')
+        else:
+            # If form is invalid, print errors for debugging (optional)
+            print(form.errors)
+            return render(request, 'edit_transaction.html', {'form': form, 'transaction': transaction})
+    else:
+        form = TransactionForm(instance=transaction)
+    
+    return render(request, 'edit_transaction.html', {'form': form, 'transaction': transaction})
+
+@login_required
+def delete_transaction(request, transaction_id):
+    transaction = get_object_or_404(Transaction, id=transaction_id, user=request.user)
+    if request.method == 'POST':
+        transaction.delete()
+        messages.success(request, 'Transaction deleted successfully!')
+        return redirect('transactions')
+    return render(request, 'confirm_delete.html', {'transaction': transaction})
 
 @login_required
 def categories(request):

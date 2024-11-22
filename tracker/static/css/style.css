@@ -1,0 +1,40 @@
+
+/* Ensure text contrast with background colors */
+.red.lighten-4 {
+    color: #b71c1c !important;
+    font-weight: bold;
+}
+
+.green.lighten-4 {
+    color: #1b5e20 !important;
+    font-weight: bold;
+}
+
+.compact-table tr {
+    transition: background-color 0.3s ease; /* Smooth highlight transition */
+}
+
+.compact-table tr:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Highlight on hover */
+}
+
+.compact-table td, .compact-table th {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.btn-floating.btn-small {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.btn-floating.btn-small i {
+    font-size: 18px; /* Adjust icon size */
+}
+
+.transaction-description {
+    white-space: normal;
+    max-width: 100px;
+    overflow-x: auto;
+}

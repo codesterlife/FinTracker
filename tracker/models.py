@@ -21,6 +21,7 @@ class Transaction(models.Model):
     date = models.DateField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
     transaction_type = models.CharField(max_length=10, choices=[('income', 'Income'), ('expense', 'Expense')])
 
     def __str__(self):

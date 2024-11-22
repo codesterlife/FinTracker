@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="section">
+        <h2 class="center-align">Edit Transaction</h2>
+        <div class="row">
+            <form class="col s12" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="center-align">
+                    <button type="submit" class="btn waves-effect waves-light green">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

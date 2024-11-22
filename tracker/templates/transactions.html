@@ -3,6 +3,16 @@
 {% block content %}
     <h2 class="center-align">Transactions</h2>
 
+    {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="card-panel {{ message.tags }}">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="center-align">
         <form method="get" class="filter-form" style="width: 200px;">
             <label for="filter">Filter by:</label>
@@ -15,18 +25,45 @@
         </form>
     </div>
 
-    <div class="row" style=" height: 700px; overflow-y: scroll;">
-        <ul class="collection">
-            {% for transaction in transactions %}
-                <li class="collection-item {% if transaction.transaction_type == 'expense' %}red lighten-4{% else %}green lighten-4{% endif %}" style="border-bottom: 2px solid black;">
-                    <span class="title" style="font-weight: bold;">{{ transaction.category.name }}</span>
-                    <p>Date: {{ transaction.date }}</p>
-                    <p>Amount: {{ transaction.amount }}</p>
-                    <p>Type: {{ transaction.transaction_type }}</p>
-                </li>
-            {% empty %}
-                <li class="collection-item">No transactions found for this period.</li>
-            {% endfor %}
-        </ul>
+    <div class="row" style=" max-height: 400px; overflow-y: scroll;">
+<div class="card-panel">
+            <table class="highlight centered striped compact-table">
+                <thead>
+                    <tr class="{% if transaction.transaction_type == 'expense' %}red lighten-4{% elif transaction.transaction_type == 'income' %}green lighten-4{% endif %}">
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.transaction_type }}</td>
+                            <td>{{ transaction.category.name }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td class="transaction-description">{{ transaction.description|default:"" }}</td>
+                            <td>
+                                <!-- Edit button -->
+                                <a href="{% url 'edit_transaction' transaction.id %}" class="btn-floating blue waves-effect waves-light" title="Edit">
+                                    <i class="material-icons small">edit</i>
+                                </a>
+                                <!-- Delete button -->
+                                <a href="{% url 'delete_transaction' transaction.id %}" class="btn-floating red waves-effect waves-light" title="Delete">
+                                    <i class="material-icons small">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No transactions found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
