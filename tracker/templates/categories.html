@@ -7,7 +7,9 @@
                 <h4>Income Categories</h4>
                 <ul class="collection">
                     {% for category in income_categories %}
-                        <li class="collection-item">{{ category.name }}</li>
+                        {% if category.user is None %}
+                            <li class="collection-item">{{ category.name }}<span class="new badge grey" data-badge-caption="Global"></span></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 <form method="post">
@@ -23,7 +25,9 @@
                 <h4>Expense Categories</h4>
                 <ul class="collection">
                     {% for category in expense_categories %}
-                        <li class="collection-item">{{ category.name }}</li>
+                        {% if category.user is None %}
+                        <li class="collection-item">{{ category.name }}<span class="new badge grey" data-badge-caption="Global"></span></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 <form method="post">
