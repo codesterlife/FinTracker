@@ -10,6 +10,7 @@ from django.db.models import Sum
 from django.utils import timezone
 import plotly.express as px
 import plotly.graph_objs as go
+from django.db.models import Q
 
 def index(request):
     if request.user.is_authenticated:
@@ -149,6 +150,15 @@ def add_expense(request):
     else:
         form = TransactionForm(transaction_type='expense')
 
+    expense_categories = Category.objects.filter(
+        category_type='expense'
+    ).filter(
+        Q(user=request.user) | Q(user__isnull=True)
+    )
+
+    form = TransactionForm()
+    form.fields['category'].queryset = expense_categories
+
     return render(request, 'add_expense.html', {'form': form})
 
 def add_income(request):
@@ -173,6 +183,15 @@ def add_income(request):
             messages.error(request, 'Failed to add income. Please check your input.')
     else:
         form = TransactionForm(transaction_type='income')
+    
+    income_categories = Category.objects.filter(
+        category_type='income'
+    ).filter(
+        Q(user=request.user) | Q(user__isnull=True)
+    )
+
+    form = TransactionForm()
+    form.fields['category'].queryset = income_categories
 
     return render(request, 'add_income.html', {'form': form})
 
