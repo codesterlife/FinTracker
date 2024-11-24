@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/fintrackr_logo.png' %}" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>FinTracker</title>
+    <title>{% block title %}{% endblock %} | FinTrackr</title>
 </head>
 <body class="amber lighten-5">
     <!-- Navbar -->
@@ -16,14 +17,19 @@
     <div class="navbar-fixed">
         <nav class="indigo darken-2">
             <div class="nav-wrapper container">
-                <a href="{% url 'spending' %}" class="brand-logo bold"><b>FinTrackr</b></a> 
+                <a href="{% url 'spending' %}" class="brand-logo bold">
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <img src="{% static 'img/fintrackr_logo.png' %}" alt="FinTrackr Logo" style="height: 30px; width: 30px;">&nbsp;
+                        <b>FinTrackr</b>
+                    </div>
+                </a>
                 <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li class="{% if request.path == '/spending/' %} active {% endif %}"><a href="{% url 'spending' %}"><i class="material-icons left">account_balance_wallet</i>Spending</a></li>
                     <li class="{% if request.path == '/dashboard/' %} active {% endif %}"><a href="{% url 'dashboard' %}"><i class="material-icons left">dashboard</i>Dashboard</a></li>
                     <li class="{% if request.path == '/transactions/' %} active {% endif %}"><a href="{% url 'transactions' %}"><i class="material-icons left">receipt_long</i>Transactions</a></li>
                     <li class="{% if request.path == '/categories/' %} active {% endif %}"><a href="{% url 'categories' %}"><i class="material-icons left">category</i>Categories</a></li>
-                    <li class="{% if request.path == '/account/' %} active {% endif %}"><a href="{% url 'account' %}"><i class="material-icons left">account_circle</i>Account</a></li>
+                    <li class="{% if request.path == '/account/' %} active {% endif %}"><a href="{% url 'account' %}"><i class="material-icons left">account_circle</i><b>{{ user.username }}</b></a></li>
                 </ul>
             </div>
         </nav>
@@ -32,7 +38,7 @@
             <li class="{% if request.path == '/dashboard/' %} active {% endif %}"><a href="{% url 'dashboard' %}"><i class="material-icons left">dashboard</i>Dashboard</a></li>
             <li class="{% if request.path == '/transactions/' %} active {% endif %}"><a href="{% url 'transactions' %}"><i class="material-icons left">receipt_long</i>Transactions</a></li>
             <li class="{% if request.path == '/categories/' %} active {% endif %}"><a href="{% url 'categories' %}"><i class="material-icons left">category</i>Categories</a></li>
-            <li class="{% if request.path == '/account/' %} active {% endif %}"><a href="{% url 'account' %}"><i class="material-icons left">account_circle</i>Account</a></li>
+            <li class="{% if request.path == '/account/' %} active {% endif %}"><a href="{% url 'account' %}"><i class="material-icons left">account_circle</i><b>{{ user.username }}</b></a></li>
         </ul>
     </div>
     {% endif %}

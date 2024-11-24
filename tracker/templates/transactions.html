@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Transactions{% endblock %}
+
 {% block content %}
     <h2 class="center-align">Transactions</h2>
 
@@ -15,7 +17,7 @@
 
     <div class="center-align">
         <form method="get" class="filter-form" style="width: 200px;">
-            <label for="filter">Filter by:</label>
+            <label for="filter"><b>Filter by:</b></label>
             <select id="filter" name="filter" onchange="this.form.submit()">
                 <option value="daily" {% if filter_type == 'daily' %}selected{% endif %}>Daily</option>
                 <option value="weekly" {% if filter_type == 'weekly' %}selected{% endif %}>Weekly</option>
@@ -26,7 +28,7 @@
     </div>
 
     <div class="row" style=" max-height: 400px; overflow-y: scroll;">
-<div class="card-panel">
+        <div class="card-panel z-depth-2" style="border-radius: 15px; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);">
             <table class="highlight centered striped compact-table">
                 <thead>
                     <tr class="{% if transaction.transaction_type == 'expense' %}red lighten-4{% elif transaction.transaction_type == 'income' %}green lighten-4{% endif %}">

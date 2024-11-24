@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
+
+{% block title %}Add Expense{% endblock %}
+
 {% block content %}
     <div class="section">
         <h2 class="center-align">Add Expense</h2>
         <div class="row">
-            <form class="col s12" action="{% url 'add_expense' %}" method="post">
-                {% csrf_token %}
-                <div class="input-field col s12">
-                    <input type="text" id="date" name="date" required class="datepicker">
-                    <label for="date">Date</label>
+            <div class="col s12 l8 offset-l2">
+                <div class="card z-depth-2" style="border-radius: 15px; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);">
+                    <div class="card-content">
+                        <form action="{% url 'add_expense' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-field col s12">
+                                <input type="text" id="date" name="date" required class="datepicker">
+                                <label for="date">Date</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <select name="category" required>
+                                    <option value="" disabled selected>Choose a category</option>
+                                    {% for category in form.category.field.queryset %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="category">Select Category</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="number" step="1" id="amount" name="amount" required>
+                                <label for="amount">Amount</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="text" id="description" name="description">
+                                <label for="description">Description</label>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit" class="btn waves-effect waves-light red">Add Expense</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="input-field col s12">
-                    <select name="category" required>
-                        <option value="" disabled selected>Choose a category</option>
-                        {% for category in form.category.field.queryset %}
-                            <option value="{{ category.id }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="category">Select Category</label>
-                </div>
-                <div class="input-field col s12">
-                    <input type="number" step="1" id="amount" name="amount" required>
-                    <label for="amount">Amount</label>
-                </div>
-                <div class="input-field col s12">
-                    <input type="text" id="description" name="description">
-                    <label for="description">Description</label>
-                </div>
-                <div class="center-align">
-                    <button type="submit" class="btn waves-effect waves-light red">Add Expense</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock %}

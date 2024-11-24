@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
 {% block content %}
     <div class="section">
         <h2 class="center-align">Spending Overview</h2>
@@ -31,7 +34,7 @@
         <div class="center-align">
             <a href="{% url 'add_income' %}" class="btn waves-effect waves-light green">Add Income</a>&nbsp;
             <a href="{% url 'add_expense' %}" class="btn waves-effect waves-light red">Add Expense</a>
-            <a href="{% url 'dashboard' %}" class="btn waves-effect waves-light amber">Dashboard</a>
+            <a href="{% url 'dashboard' %}" class="btn waves-effect waves-light amber darken-2">Dashboard</a>
         </div>
     </div>
 {% endblock %}

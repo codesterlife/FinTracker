@@ -1,4 +1,63 @@
 {% extends 'base.html' %}
+
+{% block title %}Edit Transaction{% endblock %}
+
+
+{% block content %}
+    <div class="section" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h2 class="center-align">Edit Transaction</h2>
+        <div class="row">
+            <!-- Card Box -->
+            <div class="col s12 l12 offset-l0">
+                <div class="card z-depth-2" style="border-radius: 15px; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);">
+                    <div class="card-content">
+                        <form method="post">
+                            {% csrf_token %}
+                            
+                            <!-- Date Field -->
+                            <div class="input-field">
+                                {{ form.date.label_tag }}
+                                {{ form.date }}
+                            </div>
+
+                            <!-- Amount Field -->
+                            <div class="input-field">
+                                {{ form.amount.label_tag }}
+                                {{ form.amount }}
+                            </div>
+
+                            <!-- Category Dropdown -->
+                            <div class="input-field">
+                                <label for="id_category">Category</label>
+                                <select id="id_category" name="category" required>
+                                    <option value="" disabled>Select a category</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}" {% if category == form.instance.category %}selected{% endif %}>
+                                            {{ category.name }} {% if category.user is None %}(Global){% endif %}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Description Field -->
+                            <div class="input-field" style="margin-top: 30px;">
+                                {{ form.description.label_tag }}&nbsp;
+                                {{ form.description }}
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="center-align">
+                                <button type="submit" class="btn waves-effect waves-light blue darken-2">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% comment %} {% extends 'base.html' %}
 {% block content %}
     <div class="section">
         <h2 class="center-align">Edit Transaction</h2>
@@ -12,4 +71,4 @@
             </form>
         </div>
     </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

@@ -1,22 +1,32 @@
 {% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
 {% block content %}
-    <div class="section">
-        <h2 class="center-align">Login</h2>
+    <div class="section" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 5%;">
         <div class="row">
-            <form class="col s12" method="post">
-                {% csrf_token %}
-                <div class="input-field col s12">
-                    <input type="text" id="username" name="username" required>
-                    <label for="username">Username</label>
+            <div class="col s12 l12 offset-l0">
+                <div class="card z-depth-2" style="border-radius: 15px; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);">
+                    <div class="card-content">
+                        <h2 class="center-align"><b>Login</b></h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="input-field col s12">
+                                <input type="text" id="username" name="username" required>
+                                <label for="username">Username</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <input type="password" id="password" name="password" required>
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="center-align">
+                                <button type="submit" class="btn waves-effect waves-light teal">Login</button>
+                            </div><br>
+                        </form>
+                        <p class="center-align">Do not have an account? <a href="{% url 'register' %}"> Signup</p>
+                    </div>
                 </div>
-                <div class="input-field col s12">
-                    <input type="password" id="password" name="password" required>
-                    <label for="password">Password</label>
-                </div>
-                <div class="center-align">
-                    <button type="submit" class="btn waves-effect waves-light teal">Login</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock %}
