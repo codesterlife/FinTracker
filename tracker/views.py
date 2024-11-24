@@ -4,11 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Transaction, Category
 from .forms import TransactionForm
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.utils import timezone
-import plotly.express as px
 import plotly.graph_objs as go
 from django.db.models import Q
 
@@ -54,6 +53,7 @@ def login_view(request):
     
     return render(request, 'login.html')
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('index')
@@ -161,6 +161,7 @@ def add_expense(request):
 
     return render(request, 'add_expense.html', {'form': form})
 
+@login_required
 def add_income(request):
     if request.method == 'POST':
         date_str = request.POST.get('date')
@@ -224,24 +225,32 @@ def transactions(request):
 
 @login_required
 def edit_transaction(request, transaction_id):
-    # Get the transaction object to edit
-    transaction = get_object_or_404(Transaction, id=transaction_id)
+    transaction = get_object_or_404(Transaction, id=transaction_id, user=request.user)
+
+    if transaction.transaction_type == 'income':
+        categories = Category.objects.filter(category_type='income').filter(user=request.user) | \
+                     Category.objects.filter(category_type='income', user__isnull=True)
+    else:
+        categories = Category.objects.filter(category_type='expense').filter(user=request.user) | \
+                     Category.objects.filter(category_type='expense', user__isnull=True)
     
     if request.method == 'POST':
         form = TransactionForm(request.POST, instance=transaction)
         if form.is_valid():
-            # Save the updated transaction
+
             form.save()
-            # Redirect to the transactions page after saving
+            messages.success(request, 'Transaction updated successfully!')
+
             return redirect('transactions')
         else:
-            # If form is invalid, print errors for debugging (optional)
-            print(form.errors)
-            return render(request, 'edit_transaction.html', {'form': form, 'transaction': transaction})
+
+            messages.error(request, 'Error updating transaction.')
     else:
         form = TransactionForm(instance=transaction)
+
+    context = {'form': form, 'transaction': transaction, 'categories': categories}
     
-    return render(request, 'edit_transaction.html', {'form': form, 'transaction': transaction})
+    return render(request, 'edit_transaction.html', context)
 
 @login_required
 def delete_transaction(request, transaction_id):
