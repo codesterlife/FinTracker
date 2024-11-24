@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="section center-align">
-        <h1>Welcome to FinTracker</h1>
+        <h1>FinTrackr</h1>
+        <h6>Personal Expense Tracker</h6>
+        <hr>
+        <br>
         <div class="row">
             <div class="col s12">
-                <a href="{% url 'login' %}" class="waves-effect waves-light btn teal">Login</a>
-                <a href="{% url 'register' %}" class="waves-effect waves-light btn teal lighten-2">Register</a>
+                <a href="{% url 'login' %}" class="waves-effect waves-light btn teal">Login</a>&nbsp;
+                <a href="{% url 'register' %}" class="waves-effect waves-light btn purple lighten-1">Register</a>
             </div>
         </div>
     </div>
