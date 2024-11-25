@@ -28,7 +28,7 @@
                                 <label for="password2">Confirm Password</label>
                             </div>
                             <div class="center-align">
-                                <button type="submit" class="btn waves-effect waves-light teal">Register</button>
+                                <button type="submit" name="submit" class="btn waves-effect waves-light teal">Register</button>
                             </div><br>
                         </form>
                         <p class="center-align">Already a user? <a href="{% url 'login' %}"> Login</p>
@@ -37,4 +37,15 @@
             </div>
         </div>
     </div>
+
+<script>
+    document.getElementById("emailForm").addEventListener("submit", function(e) {
+        const email = document.getElementById("email").value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            alert("Invalid email address.");
+        }
+    });
+</script>
 {% endblock %}
